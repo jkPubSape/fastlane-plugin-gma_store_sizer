@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'jkarcz@sapient.com'
 
   spec.summary       = 'GMA enhanced version of store sizer plugin'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-gma_store_sizer"
+  spec.homepage      = "https://github.com/jkPubSape/fastlane-plugin-gma_store_sizer"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
