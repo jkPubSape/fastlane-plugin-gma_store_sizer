@@ -16,12 +16,6 @@ module Fastlane
 
       def self.xcode_export_package(archive_path, export_options_plist_path, export_path)
         require 'shellwords'
-        
-        UI.message("JK TESTING - without shellwords")
-        UI.message("export_options_plist_path: #{export_options_plist_path}")
-        UI.message("archive_path: #{archive_path}")
-        UI.message("export_path: #{export_path}")
-
         # modified from just xcodebuild to fix issue i was getting when exporting ad-hoc build
         # error: exportArchive: The data couldn’t be read because it isn’t in the correct format.
         # oddly enough, this was an RVM issue
