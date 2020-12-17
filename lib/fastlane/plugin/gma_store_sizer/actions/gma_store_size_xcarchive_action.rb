@@ -53,6 +53,9 @@ module Fastlane
             export_options[EXPORT_OPTIONS_PLIST_THINNING_KEY] = params[:thinning] || EXPORT_OPTIONS_PLIST_THINNING_VALUE
             export_options_plist_path = File.join(tmp_path, EXPORT_OPTIONS_PLIST_FILE_NAME)
             
+            UI.message("Print Version Number: #{Actions.lane_context[SharedValues::VERSION_NUMBER]}")
+            UI.message("Print Build Number: #{Actions.lane_context[SharedValues::BUILD_NUMBER]}")
+
             UI.message("here is the plist file used for export")
             UI.message(export_options)
 
