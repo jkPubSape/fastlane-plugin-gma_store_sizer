@@ -20,7 +20,7 @@ module Fastlane
 
         buildVersion=FastlaneCore::CommandExecutor.execute(command: versionCommand, print_command: false, print_all: false)
 
-        SharedValues::VERSION_NUMBER = buildVersion
+        Actions.lane_context[SharedValues::VERSION_NUMBER] = buildVersion
 
         # get build number
         buildCommand = "/usr/libexec/PlistBuddy"
@@ -29,7 +29,7 @@ module Fastlane
 
         buildNumber=FastlaneCore::CommandExecutor.execute(command: buildCommand, print_command: false, print_all: false)
 
-        SharedValues::BUILD_NUMBER = buildNumber
+        Actions.lane_context[SharedValues::BUILD_NUMBER] = buildNumber
         # check for reporing plist
         filetest = true
         filetest = File.file?(params[:reporting_credentials_plist]) if params[:reporting_credentials_plist]
