@@ -10,7 +10,9 @@ module Fastlane
       def self.run(params)
         require 'plist'
         # get version number
-        versionCommand = "xcodebuild -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION ='"
+        project_path = ""
+        project_path = params[:project_path] if params[:project_path]
+        versionCommand = "cd ./#{};xcodebuild -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION ='"
 
         # versionCommand = "/usr/libexec/PlistBuddy"
         # versionCommand << " -c \"Print CFBundleVersion\""
@@ -20,7 +22,7 @@ module Fastlane
         Actions.lane_context[SharedValues::VERSION_NUMBER] = buildVersion
 
         # get build number
-        buildCommand = "xcodebuild -showBuildSettings | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION ='"
+        buildCommand = "cd ./#{};xcodebuild -showBuildSettings | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION ='"
 
         # buildCommand = "/usr/libexec/PlistBuddy"
         # buildCommand << " -c \"Print CFBundleShortVersionString\""
@@ -126,6 +128,14 @@ module Fastlane
                                        default_value: nil,
                                        optional: true,
                                        env_name: 'STORE_SIZE_REPORTING_CREDENTIALS_PLIST',
+                                       verify_block: proc do |value|
+                                         UI.user_error!("Couldn't find reporting plist file at path '#{value}'") if !Helper.test? && !File.exist?(value)
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :project_path,
+                                       description: 'Path to project file or project workspace',
+                                       default_value: nil,
+                                       optional: true,
+                                       env_name: 'VERSION_PROJECT_PATH',
                                        verify_block: proc do |value|
                                          UI.user_error!("Couldn't find reporting plist file at path '#{value}'") if !Helper.test? && !File.exist?(value)
                                        end)
