@@ -12,7 +12,7 @@ module Fastlane
         # get version number
 
         versionCommand = "xcodebuild -showBuildSettings"
-        versionCommand << "-project #{params[:project_path]}" if params[:project_path]
+        versionCommand << " -project #{params[:project_path]}" if params[:project_path]
         versionCommand << " | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION ='"
 
         # versionCommand = "/usr/libexec/PlistBuddy"
@@ -24,7 +24,7 @@ module Fastlane
 
         # get build number
         buildCommand = "xcodebuild -showBuildSettings"
-        buildCommand << "-project #{params[:project_path]}" if params[:project_path]
+        buildCommand << " -project #{params[:project_path]}" if params[:project_path]
         buildCommand << " | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION ='"
         # buildCommand = "cd ./#{};xcodebuild -showBuildSettings | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION ='"
 
