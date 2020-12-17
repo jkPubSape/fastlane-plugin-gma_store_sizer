@@ -9,18 +9,12 @@ module Fastlane
 
       def self.run(params)
         require 'plist'
-        buildPlistPath=params[:info_plist_path]
         # get version number
-
-
-        # Get the existing buildVersion and buildNumber values from the buildPlist
-
         versionCommand = "xcodebuild -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION ='"
 
         # versionCommand = "/usr/libexec/PlistBuddy"
         # versionCommand << " -c \"Print CFBundleVersion\""
         # versionCommand << " #{buildPlistPath}"
-
         buildVersion=FastlaneCore::CommandExecutor.execute(command: versionCommand, print_command: false, print_all: false)
 
         Actions.lane_context[SharedValues::VERSION_NUMBER] = buildVersion
@@ -132,14 +126,6 @@ module Fastlane
                                        default_value: nil,
                                        optional: true,
                                        env_name: 'STORE_SIZE_REPORTING_CREDENTIALS_PLIST',
-                                       verify_block: proc do |value|
-                                         UI.user_error!("Couldn't find reporting plist file at path '#{value}'") if !Helper.test? && !File.exist?(value)
-                                       end),
-          FastlaneCore::ConfigItem.new(key: :info_plist_path,
-                                       description: 'Path to plist with version data',
-                                       default_value: nil,
-                                       optional: true,
-                                       env_name: 'INFO_PLIST',
                                        verify_block: proc do |value|
                                          UI.user_error!("Couldn't find reporting plist file at path '#{value}'") if !Helper.test? && !File.exist?(value)
                                        end)
