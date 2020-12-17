@@ -42,6 +42,9 @@ module Fastlane
 
         Actions.lane_context[SharedValues::REPORTING_CREDENTIALS_PLIST] = reporting_options
 
+        UI.message("Print Version Number: #{Actions.lane_context[SharedValues::VERSION_NUMBER]}")
+        UI.message("Print Build Number: #{Actions.lane_context[SharedValues::BUILD_NUMBER]}")
+
         UI.test_failure!("Error: could not find reporting plist file.") if !filetest
         UI.success("Preflight Check succeeded")
         
