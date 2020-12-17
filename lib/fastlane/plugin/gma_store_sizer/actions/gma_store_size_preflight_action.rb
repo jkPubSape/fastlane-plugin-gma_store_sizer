@@ -15,7 +15,7 @@ module Fastlane
 
         # Get the existing buildVersion and buildNumber values from the buildPlist
         versionCommand = "/usr/libexec/PlistBuddy"
-        versionCommand << " -c \"Print CFBuildVersion\""
+        versionCommand << " -c \"Print CFBundleVersion\""
         versionCommand << " #{buildPlistPath}"
 
         buildVersion=FastlaneCore::CommandExecutor.execute(command: versionCommand, print_command: false, print_all: false)
@@ -24,7 +24,7 @@ module Fastlane
 
         # get build number
         buildCommand = "/usr/libexec/PlistBuddy"
-        buildCommand << " -c \"Print CFBundleVersion\""
+        buildCommand << " -c \"Print CFBundleShortVersionString\""
         buildCommand << " #{buildPlistPath}"
 
         buildNumber=FastlaneCore::CommandExecutor.execute(command: buildCommand, print_command: false, print_all: false)
