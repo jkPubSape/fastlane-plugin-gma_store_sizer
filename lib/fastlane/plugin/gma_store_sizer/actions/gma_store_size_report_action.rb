@@ -1,10 +1,6 @@
 module Fastlane
   module Actions
-
-    module SharedValues
-      REPORTING_CREDENTIALS_PLIST = :REPORTING_CREDENTIALS_PLIST
-    end
-
+    
     # Reporting Credentials
     class NewRelicReportingCredentialKeys
       APP_NAME_KEY = "appName".freeze

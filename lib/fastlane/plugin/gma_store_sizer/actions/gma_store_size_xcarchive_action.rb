@@ -3,6 +3,7 @@ module Fastlane
     module SharedValues
       SIZE_REPORT = :SIZE_REPORT
       SIZE_PLIST = :SIZE_PLIST
+      EXPORT_OPTIONS_PLIST = :EXPORT_OPTIONS_PLIST
     end
 
     class GmaStoreSizeXcarchiveAction < Action
@@ -48,8 +49,8 @@ module Fastlane
 
             export_options = {}
             export_options.merge!(Plist.parse_xml(params[:export_plist])) if params[:export_plist]
+            export_options.merge!(Plist.parse_xml(params[:export_plist])) if params[:export_plist]
             export_options[EXPORT_OPTIONS_PLIST_METHOD_KEY] = EXPORT_OPTIONS_PLIST_METHOD_VALUE
-            # export_options[EXPORT_OPTIONS_PLIST_PROVISIONING_KEY] = {ENV["MATCH_APP_IDENTIFIER"] => ENV["sigh_#{ENV["MATCH_APP_IDENTIFIER"]}_adhoc_profile-name"]}
             export_options[EXPORT_OPTIONS_PLIST_THINNING_KEY] = params[:thinning] || EXPORT_OPTIONS_PLIST_THINNING_VALUE
             export_options_plist_path = File.join(tmp_path, EXPORT_OPTIONS_PLIST_FILE_NAME)
             
