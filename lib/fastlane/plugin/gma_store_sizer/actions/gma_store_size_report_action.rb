@@ -62,10 +62,10 @@ module Fastlane
             if variant.key?(Helper::AppThinningPlistKeys::VARIANT_DESCRIPTORS) then 
               variant[Helper::AppThinningPlistKeys::VARIANT_DESCRIPTORS].each do |descriptor|
                 # example of formatting: iPhone10,4; 13.0,
-                deviceArray.append("#{descriptor[Helper::AppThinningPlistKeys::DEVICE]}; #{descriptor[Helper::AppThinningPlistKeys::OS_VERSION]}")
+                deviceArray.push("#{descriptor[Helper::AppThinningPlistKeys::DEVICE]}; #{descriptor[Helper::AppThinningPlistKeys::OS_VERSION]}")
               end
             else
-              deviceArray.append("Universal")
+              deviceArray.push("Universal")
             end
 
             jsonData[EVENT_TYPE] = EVENT_TYPE_VALUE

@@ -9,6 +9,14 @@ module Fastlane
 
       def self.run(params)
         require 'plist'
+        #this is a test
+        testArray = []
+        testArray.push("test 1")
+        testArray.push("test 2")
+        testArray.push("test 3")
+        testArray.push("test 4")
+        UI.Message("printing test array: #{testArray}")
+
         # get version number
 
         versionCommand = "xcodebuild -showBuildSettings"
