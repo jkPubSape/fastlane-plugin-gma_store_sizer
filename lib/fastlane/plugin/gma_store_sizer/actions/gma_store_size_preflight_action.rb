@@ -10,9 +10,10 @@ module Fastlane
       def self.run(params)
         require 'plist'
         # get version number
-        project_path = ""
-        project_path = params[:project_path] if params[:project_path]
-        versionCommand = "cd ./#{};xcodebuild -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION ='"
+
+        versionCommand = "xcodebuild -showBuildSettings"
+        versionCommand << "-project #{params[:project_path]}" if params[:project_path]
+        versionCommand << " | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION ='"
 
         # versionCommand = "/usr/libexec/PlistBuddy"
         # versionCommand << " -c \"Print CFBundleVersion\""
@@ -22,7 +23,10 @@ module Fastlane
         Actions.lane_context[SharedValues::VERSION_NUMBER] = buildVersion
 
         # get build number
-        buildCommand = "cd ./#{};xcodebuild -showBuildSettings | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION ='"
+        buildCommand = "xcodebuild -showBuildSettings"
+        buildCommand << "-project #{params[:project_path]}" if params[:project_path]
+        buildCommand << " | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION ='"
+        # buildCommand = "cd ./#{};xcodebuild -showBuildSettings | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION ='"
 
         # buildCommand = "/usr/libexec/PlistBuddy"
         # buildCommand << " -c \"Print CFBundleShortVersionString\""
