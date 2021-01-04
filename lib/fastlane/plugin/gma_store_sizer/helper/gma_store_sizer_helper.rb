@@ -25,13 +25,6 @@ module Fastlane
         command << " -archivePath #{Shellwords.escape(archive_path)}"
         command << " -exportPath #{Shellwords.escape(export_path)}"
 
-        UI.message("JK TESTING - with shellwords")
-        UI.message("export_options_plist_path: #{Shellwords.escape(export_options_plist_path)}")
-        UI.message("archive_path: #{Shellwords.escape(archive_path)}")
-        UI.message("export_path: #{Shellwords.escape(export_path)}")
-
-        UI.message("Here is the command\n #{command}")
-
         FastlaneCore::CommandExecutor.execute(command: command, print_command: false, print_all: false)
       end
 

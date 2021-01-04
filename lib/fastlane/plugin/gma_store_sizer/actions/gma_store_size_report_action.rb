@@ -1,6 +1,6 @@
 module Fastlane
   module Actions
-    
+
     # Reporting Credentials
     class NewRelicReportingCredentialKeys
       APP_NAME_KEY = "appName".freeze
@@ -29,14 +29,16 @@ module Fastlane
       INSTALL_SIZE = "installSizeApp".freeze
       DOWNLOAD_SIZE_RESOURCES = "downloadSizeAppResources".freeze
       INSTALL_SIZE_RESOURCES = "installSizeResources".freeze
+      BUILD_ID = "buildId".freeze
       # NewRelic event Name
-      EVENT_TYPE_VALUE = "AppSizeDataTest".freeze
+      EVENT_TYPE_VALUE = "AppSizeData".freeze
       # NewRelic Request Headers
       HEADER_CONTENT_TYPE = "application/json".freeze
       HEADER_X_INSERT_KEY = "X-Insert-Key".freeze
 
       def self.run(params)
         require 'plist'
+        require 'securerandom'
 
         @shouldConvertSizeValues = params[:report_sizes_in_mb]
 
@@ -54,8 +56,8 @@ module Fastlane
           report[Helper::AppThinningPlistKeys::VARIANTS].each do |name, variant|
             next if variant[Helper::AppThinningPlistKeys::VARIANT_DESCRIPTORS].nil? && params[:ignore_universal]
 
+            reportId = SecureRandom.uuid
             jsonData = Hash.new
-
             string = String.new
             deviceArray = []
             # create supported device list (current solution is one string with all device variants)
@@ -69,6 +71,7 @@ module Fastlane
             end
 
             jsonData[EVENT_TYPE] = EVENT_TYPE_VALUE
+            jsonData[BUILD_ID] = reportId
             jsonData[APP_VERSION] = Actions.lane_context[SharedValues::VERSION_NUMBER]
             jsonData[APP_BUILD] = Actions.lane_context[SharedValues::BUILD_NUMBER]
             jsonData[APP_NAME] = reporting_options[NewRelicReportingCredentialKeys::APP_NAME_KEY]
