@@ -51,12 +51,12 @@ module Fastlane
         UI.test_failure!("Error: no variants in size plist") if report[Helper::AppThinningPlistKeys::VARIANTS].nil?
         
         jsonDataArray = []
+        reportId = SecureRandom.uuid
 
         if !report[Helper::AppThinningPlistKeys::VARIANTS].nil?
           report[Helper::AppThinningPlistKeys::VARIANTS].each do |name, variant|
             next if variant[Helper::AppThinningPlistKeys::VARIANT_DESCRIPTORS].nil? && params[:ignore_universal]
-
-            reportId = SecureRandom.uuid
+            
             jsonData = Hash.new
             string = String.new
             deviceArray = []
@@ -92,6 +92,7 @@ module Fastlane
         end
         
         post_to_new_relic(jsonDataArray)
+        # print_new_relic_request_data(jsonDataArray)
       end
 
       private 
